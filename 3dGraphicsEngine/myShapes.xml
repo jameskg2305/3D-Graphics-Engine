@@ -1,40 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shapes>
-	<!-- <shape>
-		<id>pentagon</id>
-		
-		<coord x = "100" y = "0" z = "0"/>
-		
-		<faceNumbers n = "1"/>
-		
-		<edgesForFaces>
-			<edge>5</edge>
-		</edgesForFaces>
-		
-		<cornersForFaces>
-			<cornersForFace>
-				<corner x = "-30" y = "30" z = "-30" />
-				
-				<corner x = "30" y = "30" z = "-30" />
-				
-				<corner x = "60" y = "0" z = "-30" />
-				
-				<corner x = "0" y = "-30" z = "-30" />
-				
-				<corner x = "-60" y = "0" z = "-30" />
-				
-			</cornersForFace>
-		</cornersForFaces>
-		
-		<images>
-			<image>logo3.png</image>
-			<image>logo2.png</image>
-			<image>logo1.png</image>
-			<image>logo4.png</image>
-		</images>
-		
-	</shape> -->
-	
 	<shape>
 		<id>pyramid</id>
 		
@@ -44,7 +9,7 @@
 		
 		<edgesForFaces>
 			<edge>3</edge>
-			 <edge>3</edge>
+			<edge>3</edge>
 			<edge>3</edge>
 			<edge>3</edge> 
 		</edgesForFaces>
@@ -52,69 +17,99 @@
 		<cornersForFaces>
 			<cornersForFace>
 				
-				<corner x = "-30" y = "30" z = "-30" />
-				<corner x = "30" y = "30" z = "-30" />
-				<corner x = "0" y = "0" z = "0" />
+				<corner x = "-30" y = "15" z = "-30" />
+				<corner x = "30" y = "15" z = "-30" />
+				<corner x = "0" y = "-15" z = "0" />
 			</cornersForFace>
 			 <cornersForFace>
-				<corner x = "-30" y = "30" z = "30" />
+				<corner x = "-30" y = "15" z = "30" />
 				
-				<corner x = "-30" y = "30" z = "-30" />
+				<corner x = "-30" y = "15" z = "-30" />
 				
-				<corner x = "0" y = "0" z = "0" />
-				
-			</cornersForFace>
-			<cornersForFace>
-				<corner x = "-30" y = "30" z = "30" />
-				
-				<corner x = "30" y = "30" z = "30" />
-				
-				<corner x = "0" y = "0" z = "0" />
+				<corner x = "0" y = "-15" z = "0" />
 				
 			</cornersForFace>
 			<cornersForFace>
-				<corner x = "30" y = "30" z = "30" />
+				<corner x = "30" y = "15" z = "30" />
 				
-				<corner x = "30" y = "30" z = "-30" />
+				<corner x = "-30" y = "15" z = "30" />
 				
-				<corner x = "0" y = "0" z = "0" />
+				<corner x = "0" y = "-15" z = "0" />
+				
+			</cornersForFace>
+			<cornersForFace>
+				<corner x = "30" y = "15" z = "-30" />
+				
+				<corner x = "30" y = "15" z = "30" />
+				
+				<corner x = "0" y = "-15" z = "0" />
 				
 			</cornersForFace> 
 		</cornersForFaces>
 		
-		<boundries>
-			<face>
-				<boundary x = "-30" y = "0" z = "0"/>
-				<boundary x = "30" y = "0" z = "0"/>
-				<boundary x = "-30" y = "30" z = "-30"/>
-				<boundary x = "30" y = "30" z = "-30"/>
-			</face>
-			 <face>
-				<boundary x = "0" y = "0" z = "-30"/>
-				<boundary x = "0" y = "0" z = "30"/>
-				<boundary x = "-30" y = "30" z = "-30"/>
-				<boundary x = "-30" y = "30" z = "30"/>
-			</face>
-			<face>
-				<boundary x = "30"   y = "0"  z = "0"/>
-				<boundary x = "-30"   y = "0"  z = "0"/>
-				<boundary x = "30" y = "30"  z = "30"/>
-				<boundary x = "-30"  y = "30"  z = "30"/>
-			</face>
-			<face>
-				<boundary x = "0" y = "0" z = "-30"/>
-				<boundary x = "0" y = "0" z = "30"/>
-				<boundary x = "30" y = "30" z = "-30"/>
-				<boundary x = "30" y = "30" z = "30"/>
-			</face> 
-		</boundries>
+		
+		
+		<uvMap>
+			<uvFace>
+				<corner x="0"   y="0" />
+				<corner x="1"   y="0" />
+				<corner x="0.5" y="1" />
+			</uvFace>
+			<uvFace>
+				<corner x="0"   y="0" />
+				<corner x="1"   y="0" />
+				<corner x="0.5" y="1" />
+			</uvFace>
+			<uvFace>
+				<corner x="0"   y="0" />
+				<corner x="1"   y="0" />
+				<corner x="0.5" y="1" />
+			</uvFace>
+			<uvFace>
+				<corner x="0"   y="0" />
+				<corner x="1"   y="0" />
+				<corner x="0.5" y="1" />
+			</uvFace>
+		</uvMap>
 		
 		<images>
-			<image>logo3.png</image>
-			 <image>logo2.png</image>
-			<image>logo1.png</image>
-			<image>logo4.png</image> 
+			<image>logo5.png</image>
+			<image>logo6.png</image>
+			<image>logo8.png</image>
+			<image>logo7.png</image> 
 		</images>
 		
 	</shape>
+	
+	 <!-- <shape>
+		<id>sky</id>
+		
+		<coord x = "0" y = "-100" z = "0"/>
+		
+		<faceNumbers n = "1"/>
+		
+		<edgesForFaces>
+			<edge>3</edge>
+		</edgesForFaces>
+		
+		<cornersForFaces>
+			<cornersForFace>
+				<corner x = "100" y = "0" z = "50" />
+				<corner x = "-100" y = "0" z = "50" />
+				<corner x = "0" y = "0" z = "-50" />
+			</cornersForFace>
+		</cornersForFaces>	
+		
+		<uvMap>
+			<uvFace>
+				<corner x="0"   y="0" />
+				<corner x="1"   y="0" />
+				<corner x="0.5" y="1" />
+			</uvFace>
+		</uvMap>
+		
+		<images>
+			<image>logo3.png</image>
+		</images>
+	</shape> -->
 </shapes>
