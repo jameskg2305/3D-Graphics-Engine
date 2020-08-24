@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shapes>
-	<shape>
+		<shape>
 		<id>pyramid</id>
 		
 		<coord x = "0" y = "0" z = "100"/>
 		
-		<faceNumbers n = "4"/>
+		<faceNumbers n = "1"/>
 		
 		<edgesForFaces>
 			<edge>3</edge>
@@ -15,12 +15,13 @@
 		</edgesForFaces>
 		
 		<cornersForFaces>
-			<cornersForFace>
+			 <cornersForFace>
 				
 				<corner x = "-30" y = "15" z = "-30" />
 				<corner x = "30" y = "15" z = "-30" />
 				<corner x = "0" y = "-15" z = "0" />
-			</cornersForFace>
+			</cornersForFace> 
+			 
 			 <cornersForFace>
 				<corner x = "-30" y = "15" z = "30" />
 				
@@ -50,11 +51,11 @@
 		
 		
 		<uvMap>
-			<uvFace>
+			 <uvFace>
 				<corner x="0"   y="0" />
 				<corner x="1"   y="0" />
 				<corner x="0.5" y="1" />
-			</uvFace>
+			</uvFace> 
 			<uvFace>
 				<corner x="0"   y="0" />
 				<corner x="1"   y="0" />
@@ -81,35 +82,105 @@
 		
 	</shape>
 	
-	 <!-- <shape>
+	   <shape>
 		<id>sky</id>
 		
-		<coord x = "0" y = "-100" z = "0"/>
+		<coord x = "0" y = "-1000" z = "0"/>
 		
 		<faceNumbers n = "1"/>
 		
 		<edgesForFaces>
-			<edge>3</edge>
+			<edge>4</edge>
 		</edgesForFaces>
 		
 		<cornersForFaces>
 			<cornersForFace>
-				<corner x = "100" y = "0" z = "50" />
-				<corner x = "-100" y = "0" z = "50" />
-				<corner x = "0" y = "0" z = "-50" />
+				<corner x = "-10000" y = "0" z = "-5000" />
+				<corner x = "-10000" y = "0" z = "5000" />
+				<corner x = "10000" y = "0" z =  "5000" />
+				<corner x = "10000" y = "0" z =  "-5000" />
 			</cornersForFace>
 		</cornersForFaces>	
 		
 		<uvMap>
 			<uvFace>
+				<corner x="0"   y="1" />
 				<corner x="0"   y="0" />
-				<corner x="1"   y="0" />
-				<corner x="0.5" y="1" />
+				<corner x="1" y="0" />
+				<corner x="1" y="1" />
 			</uvFace>
 		</uvMap>
 		
 		<images>
-			<image>logo3.png</image>
+			<image>logo11.png</image>
+		</images>
+	</shape>
+	
+	
+	<shape>
+		<id>grass</id>
+		
+		<coord x = "0" y = "100" z = "0"/>
+		
+		<faceNumbers n = "1"/>
+		
+		<edgesForFaces>
+			<edge>4</edge>
+		</edgesForFaces>
+		
+		<cornersForFaces>
+			<cornersForFace>
+				<corner x = "-1000" y = "0" z = "-1000" />
+				<corner x = "-1000" y = "0" z = "1000" />
+				<corner x = "1000" y = "0" z =  "1000" />
+				<corner x = "1000" y = "0" z =  "-1000" />
+			</cornersForFace>
+		</cornersForFaces>	
+		
+		<uvMap>
+			<uvFace>
+				<corner x="0"   y="1" />
+				<corner x="0"   y="0" />
+				<corner x="1" y="0" />
+				<corner x="1" y="1" />
+			</uvFace>
+		</uvMap>
+		
+		<images>
+			<image>grass.png</image>
+		</images>
+	</shape> 
+	 <!-- <shape>
+		<id>square</id>
+		
+		<coord x = "0" y = "0" z = "100"/>
+		
+		<faceNumbers n = "1"/>
+		
+		<edgesForFaces>
+			<edge>4</edge>
+		</edgesForFaces>
+		
+		<cornersForFaces>
+			<cornersForFace>
+				<corner x = "-100" y = "-30" z = "0" />
+				<corner x = "-100" y = "30" z = "0" />
+				<corner x = "100" y = "30" z =  "0" />
+				<corner x = "100" y = "-30" z =  "0" />
+			</cornersForFace>
+		</cornersForFaces>	
+		
+		<uvMap>
+			<uvFace>
+				<corner x="0"   y="1" />
+				<corner x="0"   y="0" />
+				<corner x="1" y="0" />
+				<corner x="1" y="1" />
+			</uvFace>
+		</uvMap>
+		
+		<images>
+			<image>logo7.png</image>
 		</images>
 	</shape> -->
 </shapes>
