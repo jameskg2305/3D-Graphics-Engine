@@ -1,29 +1,17 @@
-import java.awt.image.WritableRaster;
+import java.util.concurrent.Semaphore;
 
 public class paintShape {
-	public static void paintshape(WritableRaster wRaster) throws InterruptedException{
+	static boolean s = false;
+	public static void paintshape() throws InterruptedException{
 		// TODO Auto-generated method stub
 		//done=false;
+		s = true;
 		for(int i=0;i<handler.shapes.length;i++){
 			for(int j=0;j<handler.shapes[i].faces.length;j++){
-					boolean paintdone=false;
-					while(paintdone==false){
-						//System.out.println("ddddd");
-						paintdone=true;
-						for(triangleThread f : handler.h){
-							if(f.shapeNo<i){
-								paintdone=false;
-							}
-						}
-					}
-					triangleDivide.init(handler.shapes[i].faces[j], i, j, 0,0, 0, handler.threadCount-1);
-					
-					
+					triangleDivide.init(i, j, 0,0, 0, handler.threadCount-1);
 			}
-			
 		}
-		
-		//done=true;
+		s=false;
 	}
 	
 	

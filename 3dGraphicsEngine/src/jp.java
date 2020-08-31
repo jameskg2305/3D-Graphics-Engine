@@ -24,7 +24,6 @@ public class jp extends Canvas{
 	static int whiteCol=Color.WHITE.getRGB();
 	static BufferStrategy bs;
 	static Graphics2D g;
-	static boolean finishedPainting = true;
 	int[] blankColour = new int[]{whiteCol>>16,whiteCol>>8,whiteCol>>0,whiteCol>>24};
 	private static final long serialVersionUID = 1L;
 		{
@@ -67,7 +66,6 @@ public class jp extends Canvas{
 				this.createBufferStrategy(3);
 				return;
 			}
-			finishedPainting=false;
 			g = (Graphics2D) bs.getDrawGraphics();
 			
 			//boolean done=false;
@@ -138,7 +136,6 @@ public class jp extends Canvas{
 			}
 			g.dispose();
 			bs.show();
-			finishedPainting=true;
 			
 		}
 }

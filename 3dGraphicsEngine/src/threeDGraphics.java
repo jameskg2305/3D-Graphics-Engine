@@ -35,17 +35,29 @@ public class threeDGraphics{
 		runThread r = new runThread();
 		Thread t = new Thread(r);
 		t.start();
-
+		triangleDivide.shapes = handler.shapes;
 		Thread[] y = new Thread[handler.threadCount];
 		for(int i=0;i<y.length;i++){
 			handler.h[i] = new triangleThread();
 			handler.h[i].id = i;
+			handler.h[i].wRaster = jp.wRaster;
+			
+			handler.h[i].startc= i*(jp.wRaster.getWidth()/handler.threadCount);
+			handler.h[i].finc= (i+1)*(jp.wRaster.getWidth()/handler.threadCount);
+			
 			y[i] = new Thread(handler.h[i]);
 			y[i].start();
 		}
-
+		triangleThread.height = jp.wRaster.getHeight();
+		triangleThread.pixelarray = jp.pixelarray;
+		triangleThread.screenHei = handler.screenHei;
+		triangleThread.screenWid = handler.screenWid;
+		triangleDivide.h = handler.h;
+		assignToThread.h = handler.h;
+		triangleDivide.screenHei = handler.screenHei;
+		triangleDivide.screenWid = handler.screenWid;
 		quaternions q= new quaternions(
-				 Math.sin(0.39267) * -0.707,
+				 Math.sin(0.39267) * 0.707,
 				 Math.sin(0.39267) * 0,
 				 Math.sin(0.39267) * 0.707,
 				 Math.cos(0.39267))
@@ -55,7 +67,7 @@ public class threeDGraphics{
 		System.out.println(q.x+" "+q.y+" "+q.z+" "+q.w);
 		
 		double qdist = Math.sqrt(
-				  Math.pow(Math.sin(0.39267) * -0.707,2)
+				  Math.pow(Math.sin(0.39267) * 0.707,2)
 				 +Math.pow(Math.sin(0.39267) * 0,2)
 				 +Math.pow(Math.sin(0.39267) * 0.707,2)
 				 +Math.pow(Math.cos(0.39267),2));
@@ -69,8 +81,7 @@ public class threeDGraphics{
 		 
 		 q.multi(q, q1);
 		 System.out.println(q.x+" "+q.y+" "+q.z+" "+q.w);
-		long delta=0;
-		long now = 0;
+		
 		//openCL.initialise();
 		
 		//for(int j=0;j<10;j++){
@@ -94,7 +105,7 @@ public class threeDGraphics{
 		//openCL.readOutput();
 		System.out.println("******************");
 		
-		while(runThread.running==true){
+		/*while(runThread.running==true){
 			now = System.nanoTime();
 			delta+=(now-start);
 			threeDGraphics.start = System.nanoTime();
@@ -123,7 +134,7 @@ public class threeDGraphics{
 
 				delta-=1000000000/60;
 			}
-		}
+		}*/
 	}
 
 }
@@ -146,7 +157,6 @@ class runThread implements MouseListener, Runnable, KeyListener{
 	static String fpstitle="";
 	double lastX=(MouseInfo.getPointerInfo().getLocation().x);
 	double lastY=(MouseInfo.getPointerInfo().getLocation().y);
-	static Semaphore paintdone = new Semaphore(1);
 	static boolean done=true;
 	@Override
 	public void run() {
@@ -163,45 +173,58 @@ class runThread implements MouseListener, Runnable, KeyListener{
 			long now = System.nanoTime();
 			delta+=(now-start);
 			start =System.nanoTime();
+			//System.out.println(runThread.done+" rthreads is "+runThread.paintdone);
+			//System.out.println("rt.pdd is "+runThread.paintdone);
+			if(done==true){
+				
+				//System.out.println("rt.pdd is "+runThread.paintdone);
+				//if(runThread.paintdone.tryAcquire()){
 
-			
-			//System.out.println("rt.pp1 is "+paintdone+" "+done);
-			
-			//if(done==false){
-			//System.out.println("rt.pp2 is "+paintdone+" "+done);
-			//System.out.println("rt.pp3 is "+paintdone+" "+done);
-			if(done==false){
-				//System.out.println("rt.pp1 is "+paintdone+" "+done);
-				if(paintdone.tryAcquire()){
+					//System.out.println("start");
+					try {
+						paintShape.paintshape();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//System.out.println("done is now false");
+					//done=false;
+					
+					handler.fps = ""+(int)((double)1000000000/(double)(System.nanoTime()-threeDGraphics.start))+" fps";
+					
+				//}
+			//}else{
+					//System.out.println("alldone");
 					boolean alldone = false;
-					//System.out.println("ff");
 					while(alldone==false){
-						//System.out.println("in a loop");
 						alldone=true;
 						for(int y=0;y<handler.threadCount;y++){
-							//System.out.println(y+" "+handler.h[y].shapeNo+" "+handler.shapes.length+" "+handler.h[y].faces+" "+handler.h[y].paintDone);
-							if(handler.h[y].shapeNo<handler.shapes.length){
-								
+							if(handler.h[y].shapeNo<handler.shapes.length && handler.h[y].faces!=null){
+								//System.out.println("sg");
 								alldone=false;
 							}
 						}
-					}
-					if(alldone==true){
 						
+					}
+					//if(alldone==true){
+						//System.out.println("sg");
 						for(int y=0;y<handler.threadCount;y++){
+							//System.out.println(handler.h[y].shapeNo);
 							handler.h[y].paintDone=false;
 						}
-						
+						//System.out.println("while");
 						boolean paintdone=false;
 						while(paintdone==false){
+							
 							paintdone=true;
 							for(triangleThread f : handler.h){
 								if(f.paintDone==false){
 									paintdone=false;
 								}
 							}
+							
 						}
-						
+						//System.out.println("while done");
 						cameraNet.origAnglex=cameraNet.duplicateorigAnglex;
 						cameraNet.origAngley=cameraNet.duplicateorigAngley;
 						cameraNet.cameraPos = cameraNet.dupcameraPos;
@@ -212,43 +235,30 @@ class runThread implements MouseListener, Runnable, KeyListener{
 							handler.h[y].shapeNo=0;
 						}
 
-						runThread.done=true;
 
-					}
-					fpstitle = ""+(int)((double)1000000000/(double)(System.nanoTime()-start))+" fps";
+					//}
+					fpstitle = ""+(int)(1000000000/(System.nanoTime()-start))+" fps";
 					
 					
-					
-					paintdone.release();
-					
-					
-				}}
+				//}
+				}
 			//threeDGraphics.s.release();
 			//}
 			//}
 			while(delta >= 1000000000/60){
 
-				//start =System.currentTimeMillis();
 				if(paused==false){
 					runScript.script();
 					cameraRotate.mouseListen(lastX, lastY);
-					//if(jp.finishedPainting==true && paintdone.availablePermits()==1){
-						//handler.shapes = sortObj(handler.shapes);
-
-					//}
-
+					
 					lastX = (MouseInfo.getPointerInfo().getLocation().x);
 					lastY = (MouseInfo.getPointerInfo().getLocation().y);
-					//threeDGraphics.g.getGraphics().dispose();
 
 				}
 
-				//threeDGraphics.g.setTitle(""+(int)((double)1000000000/(double)(System.nanoTime()-start))+" fps");
-				
-				//start =System.nanoTime();
 				delta-=1000000000/60;
 
-				handler.g.setTitle("thread 1: "+runThread.fpstitle +" Main thread: "+handler.fps +" Graphics thread: "+jp.fps);
+				handler.g.setTitle("Main thread: "+fpstitle + " Graphics thread: "+jp.fps);
 			}
 		}
 	}

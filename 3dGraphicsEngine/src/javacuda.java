@@ -13,6 +13,10 @@ import jcuda.driver.*;
 public class javacuda
 {
 	static Semaphore s = new Semaphore(1);
+	public static void init()
+	{
+		
+	}
 	public static void main()
 	{
 		// Enable exceptions and omit all subsequent error checks
@@ -31,13 +35,13 @@ public class javacuda
 
         // Load the ptx file.
         CUmodule module = new CUmodule();
-        cuModuleLoad(module, "basicadd.ptx");
+        cuModuleLoad(module, "test.ptx");
 
         // Obtain a function pointer to the "add" function.
         CUfunction function = new CUfunction();
         cuModuleGetFunction(function, module, "add");
-
-        int numElements = 10000;
+        
+        int numElements = 10;
 
         // Allocate and fill the host input data
         int hostInputA[] = new int[numElements];
@@ -47,20 +51,16 @@ public class javacuda
             hostInputA[i] = i;
             //hostInputB[i] = i;
         }
-        
+        //System.out.println(Arrays.toString(hostInputA));
         long time = System.currentTimeMillis();
-        for(int i=0;i<100;i++){
+        for(int i=0;i<1;i++){
         	// Allocate the device input data, and copy the
             // host input data to the device
             deviceInputA = new CUdeviceptr();
             cuMemAlloc(deviceInputA, numElements * Sizeof.INT);
             cuMemcpyHtoD(deviceInputA, Pointer.to(hostInputA),
                 numElements * Sizeof.INT);
-            deviceInputB = new CUdeviceptr();
-            cuMemAlloc(deviceInputB, numElements * Sizeof.INT);
-            cuMemcpyHtoD(deviceInputB, Pointer.to(hostInputB),
-                numElements * Sizeof.INT);
-
+            
             // Allocate device output memory
             deviceOutput = new CUdeviceptr();
             cuMemAlloc(deviceOutput, numElements * Sizeof.INT);
@@ -70,7 +70,6 @@ public class javacuda
         Pointer kernelParameters = Pointer.to(
             Pointer.to(new int[]{numElements}),
             Pointer.to(deviceInputA),
-            Pointer.to(deviceInputB),
             Pointer.to(deviceOutput)
         );
 
@@ -94,12 +93,12 @@ public class javacuda
         
         hostInputA = hostOutput;
         cuMemFree(deviceInputA);
-        cuMemFree(deviceInputB);
+        //cuMemFree(deviceInputB);
         cuMemFree(deviceOutput);
         //hostInputB = hostOutput;
         }
         System.out.println(System.currentTimeMillis() - time);
-        //System.out.println(Arrays.toString(hostOutput));
+        System.out.println(Arrays.toString(hostOutput));
         //threeDGraphics.jc+=System.currentTimeMillis() - time;
         // Clean up.
         

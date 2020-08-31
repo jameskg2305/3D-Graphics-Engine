@@ -10,7 +10,7 @@ public class face{
 	String id="";
 	double []avg = new double[]{0,0,0};
 	int[] pixelsColours;
-	double[][][] uvMapEdges = null;
+	double[] uvMapEdges = null;
 	
 	public face(edge[] edges, File input,
 			double[][] uvMap, int[] pixelsColours){
@@ -48,26 +48,26 @@ public class face{
 		}
 		
 		
-		uvMapEdges = new double[edges.length][2][2];
+		uvMapEdges = new double[edges.length*2*2];
 		double[][] uvMapCorners = uvMap;
 		for(int i=0;i<uvMapCorners.length;i++){
 				if(i != uvMapCorners.length-1){
 					
-					uvMapEdges[i][0][0] =   uvMapCorners[i][0];
-					uvMapEdges[i][0][1] = uvMapCorners[i][1];
-					uvMapEdges[i][1][0] = uvMapCorners[i+1][0];
-					uvMapEdges[i][1][1] = uvMapCorners[i+1][1];
+					uvMapEdges[i*4+0] =   uvMapCorners[i][0];
+					uvMapEdges[i*4+1] = uvMapCorners[i][1];
+					uvMapEdges[i*4+2] = uvMapCorners[i+1][0];
+					uvMapEdges[i*4+3] = uvMapCorners[i+1][1];
 				}else{
-					uvMapEdges[i][0][0] =   uvMapCorners[i][0];
-					uvMapEdges[i][0][1] = uvMapCorners[i][1];
-					uvMapEdges[i][1][0] = uvMapCorners[0][0];
-					uvMapEdges[i][1][1] = uvMapCorners[0][1];
+					uvMapEdges[i*4+0] =   uvMapCorners[i][0];
+					uvMapEdges[i*4+1] = uvMapCorners[i][1];
+					uvMapEdges[i*4+2] = uvMapCorners[0][0];
+					uvMapEdges[i*4+3] = uvMapCorners[0][1];
 				}
 		}
 	}
 	
 	public face(edge[] edges,
-			double[][][] uvMapEdges, int[] pixelsColours){
+			double[] uvMapEdges, int[] pixelsColours){
 		this.edges = edges;
 		this.uvMapEdges = uvMapEdges;
 		this.pixelsColours = pixelsColours;
